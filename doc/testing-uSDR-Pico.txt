@@ -1,0 +1,93 @@
+04/30/26 
+devel@pi5-80:~ $ ls -la *.uf2
+-rw-r--r-- 1 devel devel 194560 Apr 29 13:09 uSDR-Pico.uf2
+Program a pico with -rw-r--r-- 1 devel devel 194560 Apr 29 13:09 uSDR-Pico.uf2 
+which was created on win11 WSL
+
+devel@pi5-80:~ $ sudo minicom -s
+Serial port setup
++-----[configuration]------+                                     
+            | Filenames and paths      |                                     
+            | File transfer protocols  |                                     
+            | Serial port setup        |                                     
+            | Modem and dialing        |                                     
+            | Screen and keyboard      |                                     
+            | Save setup as dfl        |                                     
+            | Save setup as..          |                                     
+            | Exit                     |                                     
+            | Exit from Minicom        |                                     
+            +--------------------------+ 
+
++-----------------------------------------------------------------------+
+    | A -    Serial Device      : /dev/ttyACM0                              |
+    | B - Lockfile Location     : /var/lock                                 |
+    | C -   Callin Program      :                                           |
+    | D -  Callout Program      :                                           |
+    | E -    Bps/Par/Bits       : 115200 8N1                                |
+    | F - Hardware Flow Control : No                                        |
+    | G - Software Flow Control : No                                        |
+    | H -     RS485 Enable      : No                                        |
+    | I -   RS485 Rts On Send   : No                                        |
+    | J -  RS485 Rts After Send : No                                        |
+    | K -  RS485 Rx During Tx   : No                                        |
+    | L -  RS485 Terminate Bus  : No                                        |
+    | M - RS485 Delay Rts Before: 0                                         |
+    | N - RS485 Delay Rts After : 0                                         |
+    |                                                                       |
+    |    Change which setting?                                              |
+    +-----------------------------------------------------------------------+
+Save setup as dfl
+
+Exit from Minicom
+
+devel@pi5-80:~ $ minicom
+Welcome to minicom 2.8
+
+OPTIONS: I18n 
+Port /dev/ttyACM0, 13:47:17
+
+Press CTRL-A Z for help on special keys
+h
+flash
+   Reboots into USB bootloader mode
+si <start> <nr of reg>
+   Dumps Si5351 registers
+vfo <id>
+   Dumps vfo[id] registers
+lt (no parameters)
+   LCD test, dumps characterset on LCD
+or (no parameters)
+   Returns overrun information
+pt (no parameters)
+   Toggles PTT status
+bp {r|w} <value>
+   Read or Write BPF relays
+rx {r|w} <value>                                                                
+   Read or Write RX relays                                                      
+adc (no parameters)                                                             
+   Dump latest ADC readouts                                                     
+Pico>
+
+Pico> vfo                                                                       
+Frequency: 7070094                                                              
+Phase    : 3                                                                    
+Ri       : 1                                                                    
+MSi      : 106                                                                  
+MSN      : 29.9755
+
+Pico> adc                                                                       
+Bias  : 948, 937, 942                                                           
+RSSI  :   108                                                                   
+VOX   :    16                                                                   
+IF-AGC:     8                                                                   
+RX-AGC:     1                                                                   
+TX-AGC:   127
+
+Pico> bp r                                                                      
+BPF relays: ffffffff
+
+Pico> or                                                                        
+ADCcnt        : 1                                                               
+DSP overruns  : 0                                                               
+DSP loop load : 42%                                                             
+FFT scale = 6, iFFT scale = 0 
