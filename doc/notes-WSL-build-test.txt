@@ -68,6 +68,31 @@ devel@LAPTOP-CH1I8AOR:~/pico/uSDR-pico$ git branch -a
 Create the build folder: "mkdir ~~/pico/uSDR-pico/build".  
 Edit **~/pico/uSDR-pico/CMakeLists.txt** to have the correct environment parameter *PICO_SDK_PATH*, but it should also take it from the environment setting. In line with above installation this will be "~/pico/pico-sdk".  
 Now create the build environment, "cd ~/pico/uSDR-pico/build; cmake ..".  
+
+devel@LAPTOP-CH1I8AOR:~/pico/uSDR-pico/build$ git diff
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1f045f5..c23e563 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -11,8 +11,8 @@ set(CMAKE_CXX_STANDARD 17)
+
+ # initalize pico_sdk from installed location
+ # (note this can come from environment, CMake cache etc)
+-set(PICO_SDK_PATH "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk")
+-
++#set(PICO_SDK_PATH "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk")^M
++set(PICO_SDK_PATH "/home/devel/pico/pico-sdk")^M
+ # Pull in Raspberry Pi Pico SDK (must be before project)
+ include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+devel@LAPTOP-CH1I8AOR:~/pico/uSDR-pico/build$ cmake ..
+
+devel@LAPTOP-CH1I8AOR:~/pico/uSDR-pico/build$ make
+
+devel@LAPTOP-CH1I8AOR:~/pico/uSDR-pico/build$ ls
+CMakeCache.txt  _deps                pico-sdk              pioasm          uSDR-Pico.dis      uSDR-Pico.hex
+CMakeFiles      cmake_install.cmake  pico_flash_region.ld  pioasm-install  uSDR-Pico.elf      uSDR-Pico.uf2
+Makefile        generated            picotool              uSDR-Pico.bin   uSDR-Pico.elf.map
+
 *Note* that every time you change something in **CMakeLists.txt** (like adding another source file to the build) you will have to clean the build folder and execute cmake once more: "cd ~/pico/uSDR-pico/build; rm -rf *; cmake ..".   
 
 Now you have initialized the build environment and by executing **make** in the **build** folder, all SDK libraries and finally the Pi Pico loadable file **uSDR.uf2** will be created.  
