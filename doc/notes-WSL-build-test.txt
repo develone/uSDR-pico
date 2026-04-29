@@ -1,0 +1,76 @@
+04/30/26
+run ubuntu from the Start menu  
+- cd ~  
+- mkdir pico  
+- cd pico  
+- git clone -b master https://github.com/raspberrypi/pico-sdk.git  
+- cd pico-sdk  
+- git submodule update --init   
+- cd ~/pico  
+- git clone -b master https://github.com/raspberrypi/pico-examples.git  
+- cd ~  
+- nano .bashrc  
+add to the end: *export PICO_SDK_PATH=~/pico/pico-sdk*  
+(now the *CMakeLists.txt* file no longer needs to set this)  
+- save file and exit nano  
+- exit  
+### Test with blink example  
+run ubuntu from the Start menu  
+- cd ~/pico/pico-examples  
+- mkdir build  
+- cd build  
+- cmake ..  
+- cd blink  
+- make
+devel@LAPTOP-CH1I8AOR:~/pico/pico-examples/build/blink$ ls -la
+total 1032
+drwxr-xr-x  4 devel devel   4096 Apr 29 09:16 .
+drwxr-xr-x 43 devel devel   4096 Apr 29 09:14 ..
+drwxr-xr-x  5 devel devel   4096 Apr 29 09:16 CMakeFiles
+-rw-r--r--  1 devel devel 107199 Apr 29 09:14 Makefile
+-rwxr-xr-x  1 devel devel   6820 Apr 29 09:16 blink.bin
+-rw-r--r--  1 devel devel 124168 Apr 29 09:16 blink.dis
+-rwxr-xr-x  1 devel devel 386164 Apr 29 09:16 blink.elf
+-rw-r--r--  1 devel devel 362525 Apr 29 09:16 blink.elf.map
+-rw-r--r--  1 devel devel  19255 Apr 29 09:16 blink.hex
+-rw-r--r--  1 devel devel  13824 Apr 29 09:16 blink.uf2
+-rw-r--r--  1 devel devel   1131 Apr 29 09:14 cmake_install.cmake
+drwxr-xr-x  4 devel devel   4096 Apr 29 09:14 picotool
+
+  devel@LAPTOP-CH1I8AOR:~/pico/pico-examples/build/blink$ cp blink.uf2 /mnt/c/Users/vidal/
+  When the pico is connected to Window 11 with the boot button depressed
+  see pico-on-win11.png and blink_uf2-on-win11.png
+  When blink.uf2 is copied from c:\Users/vidal to d:\R1-RP2 the pico starts blinking.
+### Some hints  
+In Ubuntu the windows C:\ is available under **/mnt/c**  
+Likewise, the Documents folder: **/mnt/c/Users/<user>/Documents**  
+Use "explorer.exe ." to open a windows explorer in the current directory  
+  
+## Building uSDR-pico:    
+In ubuntu, git clone the uSDR-pico files: "cd ~~/pico; git clone https://github.com/ArjanteMarvelde/uSDR-pico".  
+devel@LAPTOP-CH1I8AOR:~/pico/pico-examples/build/blink$ cd ~/pico
+devel@LAPTOP-CH1I8AOR:~/pico$ ls
+pico-examples  pico-sdk
+devel@LAPTOP-CH1I8AOR:~/pico$ git clone -b test-dev https://github.com/develone/uSDR-pico.git
+Cloning into 'uSDR-pico'...
+remote: Enumerating objects: 858, done.
+remote: Counting objects: 100% (201/201), done.
+remote: Compressing objects: 100% (140/140), done.
+remote: Total 858 (delta 130), reused 91 (delta 61), pack-reused 657 (from 1)
+Receiving objects: 100% (858/858), 29.30 MiB | 5.89 MiB/s, done.
+Resolving deltas: 100% (531/531), done.
+devel@LAPTOP-CH1I8AOR:~/pico$ cd uSDR-pico/
+devel@LAPTOP-CH1I8AOR:~/pico/uSDR-pico$ git branch -a
+* test-dev
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/test-dev
+Create the build folder: "mkdir ~~/pico/uSDR-pico/build".  
+Edit **~/pico/uSDR-pico/CMakeLists.txt** to have the correct environment parameter *PICO_SDK_PATH*, but it should also take it from the environment setting. In line with above installation this will be "~/pico/pico-sdk".  
+Now create the build environment, "cd ~/pico/uSDR-pico/build; cmake ..".  
+*Note* that every time you change something in **CMakeLists.txt** (like adding another source file to the build) you will have to clean the build folder and execute cmake once more: "cd ~/pico/uSDR-pico/build; rm -rf *; cmake ..".   
+
+Now you have initialized the build environment and by executing **make** in the **build** folder, all SDK libraries and finally the Pi Pico loadable file **uSDR.uf2** will be created.  
+*Note that when environment errors are encountered, it may help to empty the build folder and re-issue the cmake command.*   
+Rebooting the Pico while the bootsel button is pressed will open a Windows Explorer window with the Pico shown as a Mass Storage Device (e.g. drive E:). Moving **uSDR.uf2** from the build to the Pico drive is as easy as dragging and dropping this file in windows explorer.  
+  
