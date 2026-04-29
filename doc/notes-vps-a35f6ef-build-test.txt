@@ -45,6 +45,21 @@ CMakeFiles  blink.bin  blink.elf      blink.hex  cmake_install.cmake
 Makefile    blink.dis  blink.elf.map  blink.uf2  picotool
 ubuntu@vps-a35f6ef3:~/pico/pico-examples/build/blink$ cd ../../../
 ubuntu@vps-a35f6ef3:~/pico$ git clone -b test-dev https://github.com/develone/uSDR-pico.git
+ubuntu@vps-a35f6ef3:~/pico/uSDR-pico/build$ git diff ../CMakeLists.txt
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1f045f5..b145acb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -11,8 +11,8 @@ set(CMAKE_CXX_STANDARD 17)
+ 
+ # initalize pico_sdk from installed location
+ # (note this can come from environment, CMake cache etc)
+-set(PICO_SDK_PATH "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk")
+-
++# set(PICO_SDK_PATH "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk")^M
++set(PICO_SDK_PATH "~/pico/pico-sdk")^M
+ # Pull in Raspberry Pi Pico SDK (must be before project)
+ include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake
 ubuntu@vps-a35f6ef3:~/pico/uSDR-pico$ mkdir build
 ubuntu@vps-a35f6ef3:~/pico/uSDR-pico$ cd build
 ubuntu@vps-a35f6ef3:~/pico/uSDR-pico/build$ cmake ..
