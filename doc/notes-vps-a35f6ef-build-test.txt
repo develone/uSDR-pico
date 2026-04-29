@@ -1,0 +1,80 @@
+04/30/26
+
+ubuntu@vps-a35f6ef3:~$ mkdir pico
+ubuntu@vps-a35f6ef3:~$ cd pico
+ubuntu@vps-a35f6ef3:~$ git clone -b master https://github.com/raspberrypi/pico-sdk.git
+ubuntu@vps-a35f6ef3:~/pico$ cd pico-sdk/
+ubuntu@vps-a35f6ef3:~/pico/pico-sdk$ git submodule update --init
+Submodule 'lib/btstack' (https://github.com/bluekitchen/btstack.git) registered for path 'lib/btstack'
+Submodule 'lib/cyw43-driver' (https://github.com/georgerobotics/cyw43-driver.git) registered for path 'lib/cyw43-driver'
+Submodule 'lib/lwip' (https://github.com/lwip-tcpip/lwip.git) registered for path 'lib/lwip'
+Submodule 'lib/mbedtls' (https://github.com/Mbed-TLS/mbedtls.git) registered for path 'lib/mbedtls'
+Submodule 'tinyusb' (https://github.com/hathach/tinyusb.git) registered for path 'lib/tinyusb'
+Cloning into '/home/ubuntu/pico/pico-sdk/lib/btstack'...
+Cloning into '/home/ubuntu/pico/pico-sdk/lib/cyw43-driver'...
+Cloning into '/home/ubuntu/pico/pico-sdk/lib/lwip'...
+Cloning into '/home/ubuntu/pico/pico-sdk/lib/mbedtls'...
+Cloning into '/home/ubuntu/pico/pico-sdk/lib/tinyusb'...
+Submodule path 'lib/btstack': checked out '501e6d2b86e6c92bfb9c390bcf55709938e25ac1'
+Submodule path 'lib/cyw43-driver': checked out 'dd7568229f3bf7a37737b9e1ef250c26efe75b23'
+Submodule path 'lib/lwip': checked out '77dcd25a72509eb83f72b033d219b1d40cd8eb95'
+Submodule path 'lib/mbedtls': checked out '107ea89daaefb9867ea9121002fbbdf926780e98'
+Submodule path 'lib/tinyusb': checked out '86ad6e56c1700e85f1c5678607a762cfe3aa2f47'
+
+ubuntu@vps-a35f6ef3:~/pico/pico-sdk$ cd ../
+ubuntu@vps-a35f6ef3:~/pico$ git clone -b master https://github.com/raspberrypi/pico-examples.git
+Cloning into 'pico-examples'...
+remote: Enumerating objects: 4912, done.
+remote: Counting objects: 100% (63/63), done.
+remote: Compressing objects: 100% (37/37), done.
+remote: Total 4912 (delta 37), reused 35 (delta 25), pack-reused 4849 (from 2)
+Receiving objects: 100% (4912/4912), 9.31 MiB | 16.08 MiB/s, done.
+Resolving deltas: 100% (2490/2490), done.
+
+ubuntu@vps-a35f6ef3:~$ . pico-sdk.sh 
+/home/ubuntu/pico/pico-sdk
+ubuntu@vps-a35f6ef3:~$ cd pico/pico-examples/
+ubuntu@vps-a35f6ef3:~/pico/pico-examples$ mkdir build
+ubuntu@vps-a35f6ef3:~/pico/pico-examples$ cd build
+ubuntu@vps-a35f6ef3:~/pico/pico-examples/build$ cmake ..
+
+ubuntu@vps-a35f6ef3:~/pico/pico-examples/build$ cd blink
+ubuntu@vps-a35f6ef3:~/pico/pico-examples/build/blink$ make
+ubuntu@vps-a35f6ef3:~/pico/pico-examples/build/blink$ ls
+CMakeFiles  blink.bin  blink.elf      blink.hex  cmake_install.cmake
+Makefile    blink.dis  blink.elf.map  blink.uf2  picotool
+ubuntu@vps-a35f6ef3:~/pico/pico-examples/build/blink$ cd ../../../
+ubuntu@vps-a35f6ef3:~/pico$ git clone -b test-dev https://github.com/develone/uSDR-pico.git
+ubuntu@vps-a35f6ef3:~/pico/uSDR-pico$ mkdir build
+ubuntu@vps-a35f6ef3:~/pico/uSDR-pico$ cd build
+ubuntu@vps-a35f6ef3:~/pico/uSDR-pico/build$ cmake ..
+ubuntu@vps-a35f6ef3:~/pico/uSDR-pico/build$ make
+ubuntu@vps-a35f6ef3:~/pico/uSDR-pico/build$ ls -la
+total 3444
+drwxrwxr-x 9 ubuntu ubuntu    4096 Apr 29 19:08 .
+drwxrwxr-x 7 ubuntu ubuntu    4096 Apr 29 19:06 ..
+-rw-rw-r-- 1 ubuntu ubuntu   26811 Apr 29 19:07 CMakeCache.txt
+-rw-rw-r-- 1 ubuntu ubuntu   15255 Apr 29 19:07 CMakeDoxyfile.in
+-rw-rw-r-- 1 ubuntu ubuntu   21147 Apr 29 19:07 CMakeDoxygenDefaults.cmake
+drwxrwxr-x 8 ubuntu ubuntu    4096 Apr 29 19:08 CMakeFiles
+-rw-rw-r-- 1 ubuntu ubuntu  172713 Apr 29 19:07 Makefile
+drwxrwxr-x 6 ubuntu ubuntu    4096 Apr 29 19:08 _deps
+-rw-rw-r-- 1 ubuntu ubuntu    1684 Apr 29 19:07 cmake_install.cmake
+drwxrwxr-x 3 ubuntu ubuntu    4096 Apr 29 19:07 generated
+drwxrwxr-x 6 ubuntu ubuntu    4096 Apr 29 19:07 pico-sdk
+-rw-rw-r-- 1 ubuntu ubuntu      60 Apr 29 19:07 pico_flash_region.ld
+drwxrwxr-x 4 ubuntu ubuntu    4096 Apr 29 19:07 picotool
+drwxrwxr-x 2 ubuntu ubuntu    4096 Apr 29 19:07 pioasm
+drwxrwxr-x 2 ubuntu ubuntu    4096 Apr 29 19:07 pioasm-install
+-rwxrwxr-x 1 ubuntu ubuntu   95764 Apr 29 19:08 uSDR-Pico.bin
+-rw-rw-r-- 1 ubuntu ubuntu 1136458 Apr 29 19:08 uSDR-Pico.dis
+-rwxrwxr-x 1 ubuntu ubuntu 1019396 Apr 29 19:08 uSDR-Pico.elf
+-rw-rw-r-- 1 ubuntu ubuntu  512901 Apr 29 19:08 uSDR-Pico.elf.map
+-rw-rw-r-- 1 ubuntu ubuntu  269427 Apr 29 19:08 uSDR-Pico.hex
+-rw-rw-r-- 1 ubuntu ubuntu  192000 Apr 29 19:08 uSDR-Pico.uf2
+
+ubuntu@vps-a35f6ef3:~/pico/uSDR-pico/build$ scp uSDR-Pico.uf2 devel@100.119.26.47:~/
+uSDR-Pico.uf2
+
+devel@pi5-70:~ $ scp uSDR-Pico.uf2 pi5-80:/media/devel/RPI-RP2/
+uSDR-Pico.uf2                                 100%  188KB   3.2MB/s   00:00 
